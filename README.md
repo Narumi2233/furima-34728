@@ -50,14 +50,13 @@ Things you may want to cover:
 | explanation      | text          | null: false       |
 | category_id      | integer       | null: false       |
 | status_id        | integer       | null: false       |
-| image            | ActiveStorage | null: false       |
 | delivery_fee_id  | integer       | null: false       |
 | prefecture_id    | integer       | null: false       |
 | delivery_days_id | integer       | null: false       |
 | price            | integer       | null: false       |
 | commission       | string        | null: false       |
 | profit           | integer       | null: false       |
-| user_id          | references    | foreign_key: true |
+| user             | references    | foreign_key: true |
 
 
 ### Association
@@ -81,7 +80,7 @@ Things you may want to cover:
 
 | Column        | Type    | Options      |
 | ------------- | ------- | ------------ |
-| postal_code   | integer | null: false  |
+| postal_code   | string | null: false  |
 | prefecture_id | string  | null: false  |
 | city          | string  | null: false  |
 | address       | string  | null: false  |
