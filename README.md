@@ -54,37 +54,36 @@ Things you may want to cover:
 | prefecture_id    | integer       | null: false       |
 | delivery_days_id | integer       | null: false       |
 | price            | integer       | null: false       |
-| commission       | string        | null: false       |
-| profit           | integer       | null: false       |
 | user             | references    | foreign_key: true |
 
 
 ### Association
 - belongs_to :user
-- belongs_to :buyer
+- has_one :buyer
 
 ## buyers テーブル
 
 | Column    | Type       | Options            |
-| --------- | ---------- | --------------------- |
+| --------- | ---------- | ------------------ |
 | user      | references | foreign_key: true  |
 | item      | references | foreign_key: true  |
 
 ### Association
 
 - belongs_to :user
-- has_many :items
+- belongs_to :item
 - has_one :shipping
 
 ## shippings テーブル
 
-| Column        | Type    | Options      |
-| ------------- | ------- | ------------ |
-| postal_code   | string | null: false  |
-| prefecture_id | string  | null: false  |
-| city          | string  | null: false  |
-| address       | string  | null: false  |
-| building      | string  |              |
-| telephone     | string | null: false  |
+| Column        | Type       | Options            |
+| ------------- | ---------- | ------------------ |
+| postal_code   | string     | null: false        |
+| prefecture_id | integer    | null: false        |
+| city          | string     | null: false        |
+| address       | string     | null: false        |
+| building      | string     |                    |
+| telephone     | string     | null: false        |
+| buyer         | references | foreign_key: true  |
 
-- has_one :buyer
+- belongs_to :buyer
