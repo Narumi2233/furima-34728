@@ -26,14 +26,16 @@ Things you may want to cover:
 
 ## users テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| nickname           | string | null: false |
-| email              | string | null: false |
-| password           | string | null: false |
-| name               | string | null: false |
-| kananame           | string | null: false |
-| birthday           | string | null: false |
+| Column             | Type   | Options                  |
+| ------------------ | ------ | ------------------------ |
+| nickname           | string | null: false              |
+| email              | string | null: false unique: true |
+| encrypted_password | string | null: false              |
+| last_name          | string | null: false              |
+| first_name         | string | null: false              |
+| last_name_kana     | string | null: false              |
+| first_name_kana    | string | null: false              |
+| birthday           | date   | null: false              |
 
 ### Association
 
@@ -42,48 +44,48 @@ Things you may want to cover:
 
 ## items テーブル
 
-| Column        | Type          | Options           |
-| ------------  | ------------- | ----------------- |
-| title         | string        | null: false       |
-| explanation   | text          | null: false       |
-| category      | text          | null: false       |
-| status        | string        | null: false       |
-| image         | ActiveStorage | null: false       |
-| delivery_fee  | string        | null: false       |
-| listing_area  | string        | null: false       |
-| delivery_days | string        | null: false       |
-| price         | integer       | null: false       |
-| commission    | string        | null: false       |
-| profit        | integer       | null: false       |
-| user_id       | references    | foreign_key: true |
+| Column           | Type          | Options           |
+| ---------------- | ------------- | ----------------- |
+| title            | string        | null: false       |
+| explanation      | text          | null: false       |
+| category_id      | integer       | null: false       |
+| status_id        | integer       | null: false       |
+| image            | ActiveStorage | null: false       |
+| delivery_fee_id  | integer       | null: false       |
+| prefecture_id    | integer       | null: false       |
+| delivery_days_id | integer       | null: false       |
+| price            | integer       | null: false       |
+| commission       | string        | null: false       |
+| profit           | integer       | null: false       |
+| user_id          | references    | foreign_key: true |
 
 
 ### Association
-- belongs_to :users
-- belongs_to :buyers
+- belongs_to :user
+- belongs_to :buyer
 
 ## buyers テーブル
 
 | Column    | Type       | Options            |
 | --------- | ---------- | --------------------- |
-| user_id   | references | foreign_key: true  |
-| item_id   | references | foreign_key: true  |
+| user      | references | foreign_key: true  |
+| item      | references | foreign_key: true  |
 
 ### Association
 
-- belongs_to :users
+- belongs_to :user
 - has_many :items
-- has_one :shippings
+- has_one :shipping
 
 ## shippings テーブル
 
-| Column       | Type    | Options      |
-| ------------ | ------- | ------------ |
-| postal_code  | integer | null: false  |
-| prefecture   | string  | null: false  |
-| city         | string  | null: false  |
-| address      | string  | null: false  |
-| building     | string  |              |
-| telephone    | integer | null: false  |
+| Column        | Type    | Options      |
+| ------------- | ------- | ------------ |
+| postal_code   | integer | null: false  |
+| prefecture_id | string  | null: false  |
+| city          | string  | null: false  |
+| address       | string  | null: false  |
+| building      | string  |              |
+| telephone     | string | null: false  |
 
-- has_one :buyers
+- has_one :buyer
