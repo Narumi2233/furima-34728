@@ -8,7 +8,6 @@ class User < ApplicationRecord
   validates_format_of :password, with: PASSWORD_REGEX, message: 'は英数字混合にしてください'
 
   validates :nickname, presence: true
-  validates :encrypted_password, presence: true, confirmation: true
   with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: 'には全角文字を使用してください' } do
     validates :last_name
     validates :first_name
