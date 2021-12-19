@@ -130,8 +130,7 @@
      <% @items.each do |item| %>
       <li class='list'>
         <%= link_to "#" do %>
-        <div class='item-img-content'>
-          <%= class: "item-img" %>
+        <div class='item-img-content' style="background-image: url(<%= item.image %>);">
 
           <%# 商品が売れていればsold outを表示しましょう %>
           <div class='sold-out'>
@@ -155,7 +154,7 @@
         <% end %>
       </li>
       <% end %>
-      <% if items.length == 0 %>
+      <% if @items.length == 0 %>
       <li class='list'>
         <%= link_to '#' do %>
         <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
