@@ -7,4 +7,15 @@ class Item < ApplicationRecord
   belongs_to :delivery_fee
   belongs_to :prefecture
   belongs_to :delivery_days
+
+
+  validates :title, presence: true
+  validates :explanation, presence: true
+
+  validates :category_id, numericality: { other_than: 0 } 
+  validates :status_id, numericality: { other_than: 0 } 
+  validates :delivery_fee_id, numericality: { other_than: 0 } 
+  validates :prefecture_id, numericality: { other_than: 0 } 
+  validates :delivery_days_id, numericality: { other_than: 0 } 
+  validates :price, numericality: { other_than: 0 }  
 end
