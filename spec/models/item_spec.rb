@@ -5,7 +5,6 @@ RSpec.describe Item, type: :model do
     @item = FactoryBot.build(:item)
   end
 
-
   describe '商品出品機能' do
     context '新規登録出来る時' do
       it '全ての項目が入力されていれば登録出来る' do
@@ -56,7 +55,7 @@ RSpec.describe Item, type: :model do
       it '販売価格についての情報がなければ登録できない' do
         @item.price = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include "Price is not a number"
+        expect(@item.errors.full_messages).to include "Price is invalid"
       end
       it '販売価格が¥299以下だと登録できない' do
         @item.price = '299'
@@ -64,7 +63,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
       it '販売価格が¥10,000,000以上だと登録できない' do
-        @item.price = ''
+        @item.price = '10000000'
           @item.valid?
           expect(@item.errors.full_messages).to include("Price is not included in the list")
       end
@@ -72,6 +71,11 @@ RSpec.describe Item, type: :model do
         @item.price = '３００'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+      it 'userが紐付いていないと保存できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
       end
     end
   end
