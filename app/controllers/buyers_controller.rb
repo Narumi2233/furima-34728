@@ -1,7 +1,9 @@
 class BuyersController < ApplicationController
   
+  before_action :authenticate_user!, only: [:index,:create]
   before_action :set_item, only: [:index ,:create ]
-
+  before_action :prevent_url, only: [:index ,:create ]
+  
   def index
     @buyer_shipping = Buyershipping.new
   end
@@ -31,4 +33,11 @@ class BuyersController < ApplicationController
   def set_item
     @item = Item.find(params[:item_id])
   end
+
+  def prevent_url
+    if @item.user.id == current_user.id || @item.buyer != nil
+      redirect_to root_path
+    end
+  end
+
 end
