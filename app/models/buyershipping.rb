@@ -19,8 +19,3 @@ class Buyershipping
       Shipping.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, address: address,telephone: telephone ,building: building, buyer_id: buyer.id)
     end
 end
-
-# コントローラー  buyersshipping - Buyer     ほぞん
-#                              - Shipping  ほぞん
-
-# itemsコントローラー itemsもでる- itemsてーぶる
