@@ -9,6 +9,12 @@ class BuyersController < ApplicationController
   def create
     @buyer_shipping = Buyershipping.new(buyer_params)
     if @buyer_shipping.valid?
+        Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+        Payjp::Charge.create(
+          amount: @item.price,  # 商品の値段
+          card: buyer_params[:token],    # カードトークン
+          currency: 'jpy'                 # 通貨の種類（日本円）
+        )
       @buyer_shipping.save
       redirect_to root_path
     else
@@ -19,7 +25,7 @@ class BuyersController < ApplicationController
   private
 
   def buyer_params
-    params.require(:buyershipping).permit(:postal_code,:prefecture_id, :city, :house_number, :building_name, :price).merge(user_id: current_user.id,item_id: params[:item_id])
+    params.require(:buyershipping).permit(:postal_code,:prefecture_id, :city, :house_number, :building_name, :price,:address, :building, :telephone).merge(user_id: current_user.id,item_id: params[:item_id],token: params[:token])
   end
 
   def set_item
