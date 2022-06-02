@@ -63,6 +63,11 @@ RSpec.describe Buyershipping, type: :model do
         @buyer_shipping.valid?
         expect(@buyer_shipping.errors.full_messages).to include('Telephone is too long (maximum is 11 characters)')
       end
+      it '電話番号が9文字以下は登録できない' do
+        @buyer_shipping.telephone = '090123456'
+        @buyer_shipping.valid?
+        expect(@buyer_shipping.errors.full_messages).to include('Telephone is too short (minimum is 10 characters)')
+      end
       it 'userが紐付いていなければ購入できない' do
         @buyer_shipping.user_id = nil
         @buyer_shipping.valid?
