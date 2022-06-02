@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :Buyershipping do
-    user_id                  { '1' }
+    association :user
+    association :item
     postal_code              { '123-4567' }
     prefecture_id            { 1 }
     city                     { '市町村' }

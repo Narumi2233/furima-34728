@@ -2,12 +2,18 @@ require 'rails_helper'
 
 RSpec.describe Buyershipping, type: :model do
   before do
-    @buyer_shipping = FactoryBot.build(:Buyershipping)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @buyer_shipping = FactoryBot.build( :Buyershipping, user_id: user.id , item_id: item.id)
   end
 
   describe '商品購入機能' do
     context '購入出来る時' do
       it '全ての項目が入力されていれば購入出来る' do
+        expect(@buyer_shipping).to be_valid
+      end
+      it '建物名が空でも購入できる' do
+        @buyer_shipping.building = ''
         expect(@buyer_shipping).to be_valid
       end
     end
@@ -56,6 +62,16 @@ RSpec.describe Buyershipping, type: :model do
         @buyer_shipping.telephone = '090123456789'
         @buyer_shipping.valid?
         expect(@buyer_shipping.errors.full_messages).to include('Telephone is too long (maximum is 11 characters)')
+      end
+      it 'userが紐付いていなければ購入できない' do
+        @buyer_shipping.user_id = nil
+        @buyer_shipping.valid?
+        expect(@buyer_shipping.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐付いていなければ購入できない' do
+        @buyer_shipping.item_id = nil
+        @buyer_shipping.valid?
+        expect(@buyer_shipping.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
