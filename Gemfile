@@ -68,3 +68,4 @@ gem 'image_processing', '~> 1.2'
 gem 'factory_bot_rails'
 gem 'faker'
 gem 'payjp'
+gem "aws-sdk-s3", require: false
